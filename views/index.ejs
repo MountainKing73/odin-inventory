@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Message Board</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <h2>Media</h2>
+    <div class="mediaContainer">
+      <div class="item_header">
+        <div>Title</div>
+        <div>Release Year</div>
+        <div>Band Name</div>
+        <div>Format Name</div>
+        <div>Genre</div>
+      </div>
+      <% media.forEach((item) => { %>
+      <div class="item">
+        <div><%= item.title %></div>
+        <div><%= item.release_year %></div>
+        <div><%= item.band_name %></div>
+        <div><%= item.format_name %></div>
+        <div><%= item.genre_name %></div>
+      </div>
+      <% }); %>
+    </div>
+  </body>
+</html>

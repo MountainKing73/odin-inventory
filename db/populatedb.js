@@ -75,4 +75,60 @@ INSERT INTO genre
 (genre_name, creation_date)
 VALUES('Pop', current_timestamp);
 
+insert into band 
+(band_name, creation_date)
+VALUES('Savatage', current_timestamp);
+
+insert into band 
+(band_name, creation_date)
+VALUES('Opeth', current_timestamp);
+
+insert into band 
+(band_name, creation_date)
+VALUES('Kiss', current_timestamp);
+
+INSERT INTO public.media
+(title, creation_date, band_id, format_id, genre_id, release_year)
+select 'Streets', current_timestamp,b.id as band_id, mf.id as format_id,  g.id as genre_id, 1991
+from media_format as mf
+cross join band as b
+cross join genre as g
+where mf.format_name = 'CD'
+and b.band_name = 'Savatage'
+and g.genre_name = 'Metal';
+
+
+INSERT INTO public.media
+(title, creation_date, band_id, format_id, genre_id, release_year)
+select 'Destroyer', current_timestamp,b.id as band_id, mf.id as format_id,  g.id as genre_id, 1976
+from media_format as mf
+cross join band as b
+cross join genre as g
+where mf.format_name = 'CD'
+and b.band_name = 'Kiss'
+and g.genre_name = 'Rock';
+
+INSERT INTO public.media
+(title, creation_date, band_id, format_id, genre_id, release_year)
+select 'The Roundhouse Tapes', current_timestamp,b.id as band_id, mf.id as format_id,  g.id as genre_id, 2007
+from media_format as mf
+cross join band as b
+cross join genre as g
+where mf.format_name = 'DVD'
+and b.band_name = 'Opeth'
+and g.genre_name = 'Metal';
 `;
+
+async function main() {
+  console.log("seeding...");
+  const client = new Client({
+    connectionString: argv[2],
+    //connectionString: "postgresql://postgres:<password>@localhost:5439/message_board",
+  });
+  await client.connect();
+  await client.query(SQL);
+  await client.end();
+  console.log("done");
+}
+
+main();
