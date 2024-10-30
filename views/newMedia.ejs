@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>New Media</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <form method="POST" action="/new">
+      <label for="title">Title: </label>
+      <input type="text" id="title" name="title" />
+      <label for="year">Release Year: </label>
+      <input type="text" id="year" name="year" />
+      <label for="band">Band: </label>
+      <input type="text" id="band" name="band" />
+      <label for="format">Format: </label>
+      <select id="format" name="format" />
+        <% mediaFormats.forEach((format) => { %>
+          <option value=<%= format.id %>><%= format.format_name %></option>
+        <% }); %>
+      </select>
+      <label for="genre">Genre: </label>
+      <select id="genre" name="genre" />
+        <% genres.forEach((genre) => { %>
+          <option value=<%= genre.id %>><%= genre.genre_name %></option>
+        <% }); %>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

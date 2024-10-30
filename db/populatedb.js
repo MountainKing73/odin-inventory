@@ -4,14 +4,6 @@ const { argv } = require("node:process");
 const { Client } = require("pg");
 
 const SQL = `
-CREATE TABLE IF NOT EXISTS band (
-	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
-	band_name varchar(255) NOT NULL,
-	creation_date timestamp NOT NULL,
-	CONSTRAINT band_pk PRIMARY KEY (id),
-  CONSTRAINT band_name_unique UNIQUE (band_name)
-);
-
 CREATE TABLE IF NOT EXISTS media_format (
 	id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL,
 	format_name varchar(255) NOT NULL,
@@ -39,7 +31,6 @@ CREATE TABLE IF NOT EXISTS media (
 	CONSTRAINT media_pk PRIMARY KEY (id)
 );
 
-ALTER TABLE media ADD CONSTRAINT media_band_fk FOREIGN KEY (band_id) REFERENCES band(id);
 ALTER TABLE media ADD CONSTRAINT media_format_fk FOREIGN KEY (format_id) REFERENCES media_format(id);
 ALTER TABLE media ADD CONSTRAINT media_genre_fk FOREIGN KEY (genre_id) REFERENCES genre(id);
 
@@ -75,47 +66,29 @@ INSERT INTO genre
 (genre_name, creation_date)
 VALUES('Pop', current_timestamp);
 
-insert into band 
-(band_name, creation_date)
-VALUES('Savatage', current_timestamp);
-
-insert into band 
-(band_name, creation_date)
-VALUES('Opeth', current_timestamp);
-
-insert into band 
-(band_name, creation_date)
-VALUES('Kiss', current_timestamp);
-
 INSERT INTO public.media
-(title, creation_date, band_id, format_id, genre_id, release_year)
-select 'Streets', current_timestamp,b.id as band_id, mf.id as format_id,  g.id as genre_id, 1991
+(title, creation_date, band_name, format_id, genre_id, release_year)
+select 'Streets', current_timestamp, 'Savatage', mf.id as format_id,  g.id as genre_id, 1991
 from media_format as mf
-cross join band as b
 cross join genre as g
 where mf.format_name = 'CD'
-and b.band_name = 'Savatage'
 and g.genre_name = 'Metal';
 
 
 INSERT INTO public.media
-(title, creation_date, band_id, format_id, genre_id, release_year)
-select 'Destroyer', current_timestamp,b.id as band_id, mf.id as format_id,  g.id as genre_id, 1976
+(title, creation_date, band_name, format_id, genre_id, release_year)
+select 'Destroyer', current_timestamp, 'Kiss', mf.id as format_id,  g.id as genre_id, 1976
 from media_format as mf
-cross join band as b
 cross join genre as g
 where mf.format_name = 'CD'
-and b.band_name = 'Kiss'
 and g.genre_name = 'Rock';
 
 INSERT INTO public.media
-(title, creation_date, band_id, format_id, genre_id, release_year)
-select 'The Roundhouse Tapes', current_timestamp,b.id as band_id, mf.id as format_id,  g.id as genre_id, 2007
+(title, creation_date, band_name, format_id, genre_id, release_year)
+select 'The Roundhouse Tapes', current_timestamp, 'Opeth', mf.id as format_id,  g.id as genre_id, 2007
 from media_format as mf
-cross join band as b
 cross join genre as g
 where mf.format_name = 'DVD'
-and b.band_name = 'Opeth'
 and g.genre_name = 'Metal';
 `;
 

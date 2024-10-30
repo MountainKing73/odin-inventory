@@ -8,3 +8,22 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+select {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 60px;
+}
