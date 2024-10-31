@@ -32,7 +32,6 @@ async function mediaNewPost(req, res) {
 async function mediaUpdateGet(req, res) {
   const { mediaId } = req.params;
   const media = await db.getSpecificMedia(mediaId);
-  console.log("media title: " + media[0].title);
   const mediaFormats = await db.getMediaFormats();
   const genres = await db.getGenres();
   res.render("updateMedia", {
@@ -55,6 +54,12 @@ async function mediaUpdatePost(req, res) {
   res.redirect("/");
 }
 
+async function mediaDeleteGet(req, res) {
+  const { mediaId } = req.params;
+  db.deleteMedia(mediaId);
+  res.redirect("/");
+}
+
 module.exports = {
   mediaAllGet,
   mediaSpecificGet,
@@ -62,4 +67,5 @@ module.exports = {
   mediaNewPost,
   mediaUpdateGet,
   mediaUpdatePost,
+  mediaDeleteGet,
 };

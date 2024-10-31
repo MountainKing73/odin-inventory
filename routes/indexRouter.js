@@ -9,5 +9,6 @@ indexRouter.get("/new", mediaController.mediaNewGet);
 indexRouter.post("/new", mediaController.mediaNewPost);
 indexRouter.get("/update/:mediaId", mediaController.mediaUpdateGet);
 indexRouter.post("/update/:mediaId", mediaController.mediaUpdatePost);
+indexRouter.get("/delete/:mediaId", mediaController.mediaDeleteGet);
 
 module.exports = indexRouter;

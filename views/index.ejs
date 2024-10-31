@@ -1,4 +1,5 @@
-<html> <head>
+<html> 
+  <head>
     <title>Media Inventory</title>
     <link rel="stylesheet" type="text/css" href="/styles.css" />
   </head>
@@ -21,6 +22,7 @@
         <div><%= item.format_name %></div>
         <div><%= item.genre_name %></div>
         <div><a href="/update/<%= item.media_id %>"">Update</a></div>
+        <div><a href="/delete/<%= item.media_id %>"">Delete</a></div>
       </div>
       <% }); %>
     </div>

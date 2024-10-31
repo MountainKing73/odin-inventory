@@ -58,6 +58,10 @@ async function updateMedia(
   ]);
 }
 
+async function deleteMedia(media_id) {
+  await pool.query("DELETE FROM media where id = $1", [media_id]);
+}
+
 module.exports = {
   getAllMedia,
   getSpecificMedia,
@@ -65,4 +69,5 @@ module.exports = {
   getGenres,
   insertMedia,
   updateMedia,
+  deleteMedia,
 };
