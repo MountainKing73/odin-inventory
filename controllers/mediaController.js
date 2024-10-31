@@ -6,7 +6,9 @@ async function mediaAllGet(req, res) {
 }
 
 async function mediaSpecificGet(req, res) {
-  console.log("Show specified media");
+  const { mediaId } = req.params;
+  const media = await db.getSpecificMedia(mediaId);
+  res.render("viewMedia", { media: media[0] });
 }
 
 async function mediaNewGet(req, res) {
@@ -16,7 +18,6 @@ async function mediaNewGet(req, res) {
 }
 
 async function mediaNewPost(req, res) {
-  console.log("Insert new media");
   await db.insertMedia(
     req.body.title,
     req.body.year,
@@ -28,9 +29,37 @@ async function mediaNewPost(req, res) {
   res.redirect("/");
 }
 
+async function mediaUpdateGet(req, res) {
+  const { mediaId } = req.params;
+  const media = await db.getSpecificMedia(mediaId);
+  console.log("media title: " + media[0].title);
+  const mediaFormats = await db.getMediaFormats();
+  const genres = await db.getGenres();
+  res.render("updateMedia", {
+    media: media[0],
+    mediaFormats: mediaFormats,
+    genres: genres,
+  });
+}
+
+async function mediaUpdatePost(req, res) {
+  const { mediaId } = req.params;
+  await db.updateMedia(
+    mediaId,
+    req.body.title,
+    req.body.year,
+    req.body.band,
+    req.body.format,
+    req.body.genre,
+  );
+  res.redirect("/");
+}
+
 module.exports = {
   mediaAllGet,
   mediaSpecificGet,
   mediaNewGet,
   mediaNewPost,
+  mediaUpdateGet,
+  mediaUpdatePost,
 };

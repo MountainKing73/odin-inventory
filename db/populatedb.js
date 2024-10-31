@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS media (
 	id int4 GENERATED ALWAYS AS IDENTITY NOT NULL,
 	title varchar(255) NOT NULL,
 	creation_date timestamp NOT NULL,
-	band_id int4 NULL,
+	band_name varchar(255) NULL,
 	format_id int4 NULL,
 	genre_id int4 NULL,
 	release_year int4 NULL,
@@ -96,7 +96,7 @@ async function main() {
   console.log("seeding...");
   const client = new Client({
     connectionString: argv[2],
-    //connectionString: "postgresql://postgres:<password>@localhost:5439/message_board",
+    //connectionString: "postgresql://postgres:<password>@localhost:5432/media_inventory",
   });
   await client.connect();
   await client.query(SQL);

@@ -1,6 +1,5 @@
-<html>
-  <head>
-    <title>Message Board</title>
+<html> <head>
+    <title>Media Inventory</title>
     <link rel="stylesheet" type="text/css" href="/styles.css" />
   </head>
   <body>
@@ -12,6 +11,7 @@
         <div>Band Name</div>
         <div>Format Name</div>
         <div>Genre</div>
+        <div>Update</div>
       </div>
       <% media.forEach((item) => { %>
       <div class="item">
@@ -20,6 +20,7 @@
         <div><%= item.band_name %></div>
         <div><%= item.format_name %></div>
         <div><%= item.genre_name %></div>
+        <div><a href="/update/<%= item.media_id %>"">Update</a></div>
       </div>
       <% }); %>
     </div>
@@ -28,3 +29,4 @@
     </div>
   </body>
 </html>
+
